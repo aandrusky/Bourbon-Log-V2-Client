@@ -1,0 +1,178 @@
+.app, #root, body, html{
+    height: 100%;
+    width: 100%;
+    background-color: #282828;
+}
+
+
+
+
+
+.homeContainer {
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+    padding-right: 5rem;
+    padding-left: 5rem;
+    padding-bottom: 15rem;
+    background-color: #282828;
+    height: 100%;
+    width: 100%;
+
+}
+
+.homeHeader{
+text-align: center;
+color: whitesmoke
+
+
+}
+
+.BourbonFormContainer{
+    padding: 2rem;
+    background-color:  #282828;
+    
+}
+.bourbonForm__title{
+    text-align: center;
+    color: whitesmoke;
+}
+
+form label{
+    color: whitesmoke;
+  }
+
+.Card_Data{
+    color: whitesmoke
+}
+
+.card-title{
+    color: whitesmoke
+}
+
+.NotesHeader{
+    text-align: center;
+    color: whitesmoke
+}
+
+
+ .BourbonListContainer {
+     display: flex;
+     flex-direction: column;
+    padding: 2rem;
+    background-color: #282828;
+    height: 90%;
+    width: 100%;
+} 
+
+.CardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 95%;
+    margin-top: 2%;
+    overflow: scroll;
+}
+
+.BourbonListHeader{
+color: whitesmoke;
+text-align: center
+}
+
+.backButtonDiv {
+  
+  padding: 3%;
+
+}
+
+.Button-list.btn.btn-primary.btn-lg {
+    
+    padding: 5rem;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.Button-Log.btn.btn-primary.btn-lg{
+
+    padding: 5rem;
+    margin-bottom: 150px;
+    
+}
+
+
+
+
+
+.card{
+    margin: .5rem; 
+
+}
+
+
+.card-body{
+    background-color: #4D5C69;
+    border: none;
+}
+
+.btn:focus, .btn.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 255, 136, 0.25);
+}
+
+.btn-primary {
+    color: #fff;
+  
+}
+
+.SaveButton.btn.btn-primary.btn-block.btn-lg {
+    background-color: #CDB87E;
+      color: whitesmoke;
+      border-color: #CDB87E
+}
+
+.SaveButton.btn.btn-primary.btn-block.btn-lg:active {
+    background-color:#823c23;
+    color: white;
+    border-color: #823c23
+}
+
+.Buttoncard.btn.btn-primary.btn-lg{
+    background-color: #CDB87E;
+      color: whitesmoke;
+      border-color: #CDB87E
+}
+
+.Buttoncard.btn.btn-primary.btn-lg:active{
+    background-color:#823c23;
+      color: white;
+      border-color: #823c23
+}
+
+
+
+
+
+
+ .Button-list.btn.btn-primary.btn-lg{
+    background-color: #CDB87E;
+      color: whitesmoke;
+      border-color: #CDB87E
+}
+
+.Button-list.btn.btn-primary.btn-lg:active{
+    background-color:#823c23;
+      color: white;
+      border-color: #823c23
+}
+
+.Button-Log.btn.btn-primary.btn-lg{
+    background-color: #CDB87E;
+      color: whitesmoke;
+      border-color: #CDB87E
+} 
+
+.Button-Log.btn.btn-primary.btn-lg:active{
+    background-color:#823c23;
+      color: whitesmoke;
+      border-color: #823c23
+} 

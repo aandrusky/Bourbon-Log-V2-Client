@@ -1,0 +1,475 @@
+// {
+//   "users": [
+//     {
+//       "email": "alanandrusky@gmail.com",
+//       "password": "123",
+//       "name": "Alan Andrusky",
+//       "id": 1
+//     },
+//     {
+//       "email": "ehubert4545@gmail.com",
+//       "password": "123",
+//       "name": "Elizabeth Andrusky",
+//       "id": 2
+//     },
+//     {
+//       "email": "Ihateyoudad@neworder.org",
+//       "password": "123",
+//       "name": "Kylo Sven",
+//       "id": 4
+//     },
+//     {
+//       "email": "alanandrosky@gmail.com",
+//       "password": "1234",
+//       "name": "Allen Androsky",
+//       "id": 5
+//     },
+//     {
+//       "email": "elizabeth.hubert@microsoft.com",
+//       "password": "ethalmay",
+//       "name": "Elizabeth Andrusky",
+//       "id": 6
+//     }
+//   ],
+//   "logs": [
+//     {
+//       "id": 2,
+//       "userId": 2,
+//       "recordCreation": "2019-12-11",
+//       "bourbonName": "Elijah Craig Barrel Proof",
+//       "distiller": "Heaven Hill Distillery",
+//       "proof": "122.2",
+//       "age": "12 years",
+//       "batchNum": "B519",
+//       "owned": true,
+//       "rating": "9/10",
+//       "photo": ""
+//     },
+//     {
+//       "bourbonName": "Russell's Reserve 2002",
+//       "distiller": "Wild Turkey",
+//       "proof": "98.6",
+//       "age": "28",
+//       "batchNum": "4395",
+//       "userId": 5,
+//       "id": 9
+//     },
+//     {
+//       "id": 19,
+//       "bourbonName": "Eagle Rare ",
+//       "distiller": "Buffalo Trace",
+//       "proof": "90",
+//       "age": "10",
+//       "batchNum": "n/a",
+//       "owned": "",
+//       "price": "35",
+//       "rating": "8/10",
+//       "userId": 5
+//     },
+//     {
+//       "bourbonName": "Stagg Jr.",
+//       "distiller": "Buffalo Trace",
+//       "proof": "131.1",
+//       "age": "8",
+//       "batchNum": "15",
+//       "price": "55",
+//       "notes": "This is delicious",
+//       "rating": "10",
+//       "userId": 5,
+//       "id": 21
+//     },
+//     {
+//       "bourbonName": "Pappy Van Winkle's 15 Year Family Reserve",
+//       "distiller": "Buffalo Trace",
+//       "proof": "53.5",
+//       "age": "15",
+//       "batchNum": "2020",
+//       "price": "129.99",
+//       "notes": "Expressly produced according to the exclusive Van Winkle family wheated-recipe and specially selected from barrels in the heart of the aging warehouses, this bourbon remained undisturbed for 15 years to age in deep-charred heavy oak untouched by human hands, unhurried by time.",
+//       "userId": 5,
+//       "id": 22
+//     },
+//     {
+//       "id": 23,
+//       "bourbonName": "Demo Day Bourbon!",
+//       "distiller": "Pufferfish Reef",
+//       "proof": "100",
+//       "age": "6 months",
+//       "batchNum": "44",
+//       "owned": "",
+//       "price": "50",
+//       "notes": "This is great",
+//       "rating": "10/10",
+//       "userId": 5
+//     },
+//     {
+//       "bourbonName": "Henry McKenna Bottled-in-Bond",
+//       "distiller": "Heaven Hill",
+//       "proof": "100",
+//       "age": "10",
+//       "batchNum": "n/a",
+//       "price": "45",
+//       "notes": "This was just ok for me. not great, not terrible. But it's a single barrel, so it could vary. ",
+//       "rating": "7/10",
+//       "userId": 1,
+//       "id": 24
+//     },
+//     {
+//       "bourbonName": "Stagg Jr.",
+//       "distiller": "Buffalo Trace",
+//       "proof": "131.1",
+//       "age": "8",
+//       "batchNum": "15",
+//       "price": "65",
+//       "notes": "Excellent, tastes like a maple pie",
+//       "rating": "10/10",
+//       "userId": 1,
+//       "id": 25
+//     },
+//     {
+//       "bourbonName": "Weller Antique",
+//       "distiller": "Buffalo Trace",
+//       "proof": "107",
+//       "age": "n/a",
+//       "batchNum": "n/a",
+//       "price": "50",
+//       "notes": "Weller Antique 107 is a crowd pleaser - full-flavored, balanced, and a fair deal if you happen to get lucky and find it at its new MSRP.",
+//       "rating": "8/10",
+//       "userId": 1,
+//       "id": 26
+//     },
+//     {
+//       "bourbonName": "BethAnnWhiskey",
+//       "distiller": "BethAnn",
+//       "proof": "30",
+//       "age": "4",
+//       "batchNum": "4359",
+//       "price": "1000000",
+//       "notes": "poo",
+//       "rating": "2",
+//       "userId": 6,
+//       "id": 27
+//     }
+//   ],
+//   "flavorsums": [
+//     {
+//       "flavorId": 5,
+//       "flavorweight": 11,
+//       "logId": 19,
+//       "id": 10
+//     },
+//     {
+//       "flavorId": 6,
+//       "flavorweight": 13,
+//       "logId": 19,
+//       "id": 11
+//     },
+//     {
+//       "flavorId": 7,
+//       "flavorweight": 23,
+//       "logId": 19,
+//       "id": 12
+//     },
+//     {
+//       "flavorId": 8,
+//       "flavorweight": 5,
+//       "logId": 19,
+//       "id": 13
+//     },
+//     {
+//       "flavorId": 1,
+//       "flavorweight": 48,
+//       "logId": 21,
+//       "id": 17
+//     },
+//     {
+//       "flavorId": 6,
+//       "flavorweight": 40,
+//       "logId": 21,
+//       "id": 18
+//     },
+//     {
+//       "flavorId": 10,
+//       "flavorweight": 22,
+//       "logId": 21,
+//       "id": 19
+//     },
+//     {
+//       "flavorId": 4,
+//       "flavorweight": 9,
+//       "logId": 21,
+//       "id": 20
+//     },
+//     {
+//       "flavorId": 3,
+//       "flavorweight": 9,
+//       "logId": 21,
+//       "id": 21
+//     },
+//     {
+//       "flavorId": 7,
+//       "flavorweight": 29,
+//       "logId": 21,
+//       "id": 22
+//     },
+//     {
+//       "flavorId": 1,
+//       "flavorweight": 43,
+//       "logId": 22,
+//       "id": 23
+//     },
+//     {
+//       "flavorId": 3,
+//       "flavorweight": 35,
+//       "logId": 22,
+//       "id": 24
+//     },
+//     {
+//       "flavorId": 5,
+//       "flavorweight": 8,
+//       "logId": 22,
+//       "id": 25
+//     },
+//     {
+//       "flavorId": 6,
+//       "flavorweight": 20,
+//       "logId": 22,
+//       "id": 26
+//     },
+//     {
+//       "flavorId": 7,
+//       "flavorweight": 44,
+//       "logId": 22,
+//       "id": 27
+//     },
+//     {
+//       "flavorId": 10,
+//       "flavorweight": 4,
+//       "logId": 22,
+//       "id": 28
+//     },
+//     {
+//       "flavorId": 1,
+//       "flavorweight": 39,
+//       "logId": 23,
+//       "id": 29
+//     },
+//     {
+//       "flavorId": 2,
+//       "flavorweight": 25,
+//       "logId": 23,
+//       "id": 30
+//     },
+//     {
+//       "flavorId": 3,
+//       "flavorweight": 57,
+//       "logId": 23,
+//       "id": 31
+//     },
+//     {
+//       "flavorId": 4,
+//       "flavorweight": 72,
+//       "logId": 23,
+//       "id": 32
+//     },
+//     {
+//       "flavorId": 6,
+//       "flavorweight": 75,
+//       "logId": 23,
+//       "id": 33
+//     },
+//     {
+//       "flavorId": 10,
+//       "flavorweight": 73,
+//       "logId": 23,
+//       "id": 34
+//     },
+//     {
+//       "flavorId": 1,
+//       "flavorweight": 33,
+//       "logId": 24,
+//       "id": 35
+//     },
+//     {
+//       "flavorId": 5,
+//       "flavorweight": 16,
+//       "logId": 24,
+//       "id": 36
+//     },
+//     {
+//       "flavorId": 6,
+//       "flavorweight": 5,
+//       "logId": 24,
+//       "id": 37
+//     },
+//     {
+//       "flavorId": 4,
+//       "flavorweight": 13,
+//       "logId": 24,
+//       "id": 38
+//     },
+//     {
+//       "flavorId": 3,
+//       "flavorweight": 17,
+//       "logId": 24,
+//       "id": 39
+//     },
+//     {
+//       "flavorId": 8,
+//       "flavorweight": 24,
+//       "logId": 24,
+//       "id": 40
+//     },
+//     {
+//       "flavorId": 10,
+//       "flavorweight": 8,
+//       "logId": 24,
+//       "id": 41
+//     },
+//     {
+//       "flavorId": 1,
+//       "flavorweight": 52,
+//       "logId": 25,
+//       "id": 42
+//     },
+//     {
+//       "flavorId": 3,
+//       "flavorweight": 23,
+//       "logId": 25,
+//       "id": 43
+//     },
+//     {
+//       "flavorId": 5,
+//       "flavorweight": 12,
+//       "logId": 25,
+//       "id": 44
+//     },
+//     {
+//       "flavorId": 6,
+//       "flavorweight": 45,
+//       "logId": 25,
+//       "id": 45
+//     },
+//     {
+//       "flavorId": 8,
+//       "flavorweight": 26,
+//       "logId": 25,
+//       "id": 46
+//     },
+//     {
+//       "flavorId": 10,
+//       "flavorweight": 7,
+//       "logId": 25,
+//       "id": 47
+//     },
+//     {
+//       "flavorId": 5,
+//       "flavorweight": 26,
+//       "logId": 26,
+//       "id": 48
+//     },
+//     {
+//       "flavorId": 7,
+//       "flavorweight": 40,
+//       "logId": 26,
+//       "id": 49
+//     },
+//     {
+//       "flavorId": 1,
+//       "flavorweight": 36,
+//       "logId": 26,
+//       "id": 50
+//     },
+//     {
+//       "flavorId": 3,
+//       "flavorweight": 31,
+//       "logId": 26,
+//       "id": 51
+//     },
+//     {
+//       "flavorId": 2,
+//       "flavorweight": 39,
+//       "logId": 27,
+//       "id": 52
+//     },
+//     {
+//       "flavorId": 4,
+//       "flavorweight": 66,
+//       "logId": 27,
+//       "id": 53
+//     },
+//     {
+//       "flavorId": 6,
+//       "flavorweight": 29,
+//       "logId": 27,
+//       "id": 54
+//     },
+//     {
+//       "flavorId": 8,
+//       "flavorweight": 66,
+//       "logId": 27,
+//       "id": 55
+//     },
+//     {
+//       "flavorId": 9,
+//       "flavorweight": 51,
+//       "logId": 27,
+//       "id": 56
+//     },
+//     {
+//       "flavorId": 9,
+//       "flavorweight": 51,
+//       "logId": 27,
+//       "id": 57
+//     }
+//   ],
+//   "flavors": [
+//     {
+//       "id": 1,
+//       "flavor": "Fruit"
+//     },
+//     {
+//       "id": 2,
+//       "flavor": "Floral"
+//     },
+//     {
+//       "id": 3,
+//       "flavor": "Oak"
+//     },
+//     {
+//       "id": 4,
+//       "flavor": "Nuts"
+//     },
+//     {
+//       "id": 5,
+//       "flavor": "Spicy"
+//     },
+//     {
+//       "id": 6,
+//       "flavor": "Maple"
+//     },
+//     {
+//       "id": 7,
+//       "flavor": "Sweet"
+//     },
+//     {
+//       "id": 8,
+//       "flavor": "Bread"
+//     },
+//     {
+//       "id": 9,
+//       "flavor": "Earthy"
+//     },
+//     {
+//       "id": 10,
+//       "flavor": "Grain"
+//     }
+//   ],
+//   "recommendations": [
+//     {
+//       "id": 1,
+//       "userId": 1,
+//       "logId": 2
+//     }
+//   ]
+// }
