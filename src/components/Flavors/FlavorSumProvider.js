@@ -26,6 +26,7 @@ const AddFlavorSums = (flavor) => {
     return fetch("http://localhost:8000/flavorsums", {
       method: "POST",
       headers: {
+        "Content-Type": "application/json",
         "Authorization": `Token ${localStorage.getItem("app_user")}`
       },
       body: JSON.stringify(flavor)

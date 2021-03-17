@@ -42,10 +42,6 @@ export const BourbonForm = (props) => {
   } 
   
 
-
-
-
-
   const handleControlledInputChange = (event) => {
     /*
         When changing a state object or array, always create a new one
@@ -59,7 +55,7 @@ export const BourbonForm = (props) => {
 
   /*
          If there is a URL parameter, then the user has chosen to
-         edit an animal.
+         edit a log.
              1. Get the value of the URL parameter.
              2. Use that `id` to find the animal.
              3. Update component state variable.
@@ -103,7 +99,7 @@ export const BourbonForm = (props) => {
         price: log.price,
         notes: log.notes,
         rating: log.rating,
-        userId: parseInt(localStorage.getItem("app_user_id"))
+        userId: parseInt(localStorage.getItem("app_user"))
       })
       .then(() => {
 
@@ -121,7 +117,7 @@ export const BourbonForm = (props) => {
         price: log.price,
         notes: log.notes,
         rating: log.rating,
-        userId: parseInt(localStorage.getItem("app_user_id"))
+        userId: parseInt(localStorage.getItem("app_user"))
       }) 
       .then((logReturnedFromApi) => {
 
@@ -210,7 +206,6 @@ export const BourbonForm = (props) => {
           <Form.Group >
             {
               flavorItem.map(flavorObj => {
-                console.log("flavorItem:", flavorItem)
                 return (
                   <>
                     <Form.Label>{flavorObj.flavor}</Form.Label>

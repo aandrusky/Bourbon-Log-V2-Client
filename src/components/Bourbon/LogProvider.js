@@ -24,12 +24,13 @@ export const LogProvider = (props) => {
     return fetch("http://localhost:8000/logs", {
       method: "POST",
       headers: {
+        "Content-Type": "application/json",
         "Authorization": `Token ${localStorage.getItem("app_user")}`
       },
       body: JSON.stringify(log)
     })
        .then(res => res.json())
-      //  .then(GetLogs)
+       // .then(GetLogs)
   }
 
   const DeleteLog = log => {
