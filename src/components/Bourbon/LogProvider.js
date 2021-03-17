@@ -8,18 +8,23 @@ export const LogProvider = (props) => {
   // useState returns [initial value of state variable, a function to set the value of the state variable]
 
   const GetLogs = () => {
-    const userLogs = parseInt(localStorage.getItem("app_user_id"))
-    return fetch(`http://localhost:8088/logs?userId=${userLogs}`)
+    const userLogs = parseInt(localStorage.getItem("app_user"))
+    return fetch(`http://localhost:8000/logs?userId=${userLogs}`, {
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("app_user")}`
+      }
+    }
+    )
       .then(res => res.json())
         .then(setLogs)   //.then((data) => console.log("HERES THE DATA", data))
     // .then(parsedLogs => setLogs(parsedLogs))
   }
 
   const AddLog = log => {
-    return fetch("http://localhost:8088/logs", {
+    return fetch("http://localhost:8000/logs", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Authorization": `Token ${localStorage.getItem("app_user")}`
       },
       body: JSON.stringify(log)
     })
@@ -28,8 +33,11 @@ export const LogProvider = (props) => {
   }
 
   const DeleteLog = log => {
-    return fetch(`http://localhost:8088/logs/${log}`, {
-      method: "DELETE"
+    return fetch(`http://localhost:8000/logs/${log}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("app_user")}`
+      }
     })
     .then(res => res.json())
        .then(GetLogs)  
@@ -37,10 +45,10 @@ export const LogProvider = (props) => {
   }
 
   const EditLog = log => {
-    return fetch(`http://localhost:8088/logs/${log.id}`, {
+    return fetch(`http://localhost:8000/logs/${log.id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Authorization": `Token ${localStorage.getItem("app_user")}`
       },
       body: JSON.stringify(log)
     })

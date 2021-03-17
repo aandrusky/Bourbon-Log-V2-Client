@@ -3,7 +3,7 @@ import { LogContext } from "./LogProvider"
 import { FlavorSumsContext } from "../Flavors/FlavorSumProvider"
 import { FlavorContext } from "../Flavors/FlavorProvider"
 import { Form, Button } from "react-bootstrap"
-import { FlavorFunctionGenerator } from "../Flavors/FlavorFunction"
+// import { FlavorFunctionGenerator } from "../Flavors/FlavorFunction"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
@@ -25,18 +25,18 @@ export const BourbonForm = (props) => {
 
 
 
-  const flavorSumLogger = (event) => {                          //this gets called everytime a slider is adjusted (onChange)
+  const flavorSumLogger = (event) => {                                      //this gets called everytime a slider is adjusted (onChange)
     const logId = parseInt(props.match.params.logId)
-    const flavorId = parseInt(event.target.id)                  //gets our id from our flavorsums resource- declared by the context provider above
-    const newFlavorSumObjects = flavorSumObjects.slice()        //<newFlavorSumObjects is a copy of our state variable array
+    const flavorId = parseInt(event.target.id)                              //gets our id from our flavorsums resource- declared by the context provider above
+    const newFlavorSumObjects = flavorSumObjects.slice()                    //<newFlavorSumObjects is a copy of our state variable array
     const foundFlavorObject = flavorSumObjects.find(flavor => flavor.flavorId === flavorId)  //loops through my array to find any instance of flavorId
-    const flavorweight = parseInt(event.target.value)           //gets our flavorweight from the flavorsums resources and sticks it in a variable. 
-    if (foundFlavorObject !== undefined) {                      //checks if found items from loop are undefined (empty object with no value- slider was never adjusted)
-      foundFlavorObject.flavorweight = flavorweight             //and if they are NOT undefined, then we can take that value and assign it as flavorweight
+    const flavorweight = parseInt(event.target.value)                       //gets our flavorweight from the flavorsums resources and sticks it in a variable. 
+    if (foundFlavorObject !== undefined) {                                  //checks if found items from loop are undefined (empty object with no value- slider was never adjusted)
+      foundFlavorObject.flavorweight = flavorweight                         //and if they are NOT undefined, then we can take that value and assign it as flavorweight
     } else {
-      newFlavorSumObjects.push({ flavorId, flavorweight, logId }) //otherwise add the found ID and WEIGHT to our array copy
+      newFlavorSumObjects.push({ flavorId, flavorweight, logId })           //otherwise add the found ID and WEIGHT to our array copy
     }
-    setFlavorSumObjects(newFlavorSumObjects)                    //I call my setState function and pass in my now filled array copy as an its new
+    setFlavorSumObjects(newFlavorSumObjects)                                //I call my setState function and pass in my now filled array copy as an its new
 
     
   } 
@@ -79,7 +79,7 @@ export const BourbonForm = (props) => {
     GetLogs()
   }, [])
 
-  // Once provider state is updated, determine the animal (if edit)
+  // Once provider state is updated, determine the log (if edit)
   useEffect(() => {
     getLogInEditMode()
   }, [logs])
@@ -210,6 +210,7 @@ export const BourbonForm = (props) => {
           <Form.Group >
             {
               flavorItem.map(flavorObj => {
+                console.log("flavorItem:", flavorItem)
                 return (
                   <>
                     <Form.Label>{flavorObj.flavor}</Form.Label>
@@ -218,7 +219,6 @@ export const BourbonForm = (props) => {
                 )
               }
               )}
-
           </Form.Group>
         </Form>
 

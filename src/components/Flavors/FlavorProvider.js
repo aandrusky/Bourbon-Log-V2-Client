@@ -7,7 +7,12 @@ export const FlavorProvider = (props) => {
 const [flavorItem, setFlavors] = useState([])
 
 const GetFlavors = () => {
-  return fetch("http://localhost:8088/flavors")
+  return fetch("http://localhost:8000/flavors",{
+    headers:{
+      "Authorization": `Token ${localStorage.getItem("app_user")}`
+    }
+  }
+  )
     .then(res => res.json())
     .then(setFlavors)  //.then((data) => console.log("HERES THE DATA", data))
   // .then(parsedFlavors => setFlavors(parsedFlavors))
