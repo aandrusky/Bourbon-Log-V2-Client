@@ -8,8 +8,7 @@ export const LogProvider = (props) => {
   // useState returns [initial value of state variable, a function to set the value of the state variable]
 
   const GetLogs = () => {
-    const userLogs = parseInt(localStorage.getItem("app_user"))
-    return fetch(`http://localhost:8000/logs?userId=${userLogs}`, {
+    return fetch("http://localhost:8000/logs", {
       headers: {
         "Authorization": `Token ${localStorage.getItem("app_user")}`
       }

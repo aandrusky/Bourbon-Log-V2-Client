@@ -14,7 +14,7 @@ export const Register = () => {
         e.preventDefault()
 
         console.log("Clicked")
-        
+
         // let createdOn = ""
         // createdOn = new Date()
         // console.log(createdOn)
