@@ -9,9 +9,12 @@ export const Register = () => {
     const verifyPassword = useRef()
     const passwordDialog = useRef()
     const history = useHistory()
+
     const handleRegister = (e) => {
         e.preventDefault()
+
         console.log("Clicked")
+        
         // let createdOn = ""
         // createdOn = new Date()
         // console.log(createdOn)

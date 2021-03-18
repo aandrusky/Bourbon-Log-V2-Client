@@ -57,7 +57,7 @@ export const Login = () => {
               type="email"
               id="email"
               className="form-control"
-              defaultValue="test@test.com"
+              defaultValue=""
               placeholder="Email address"
               required
               autoFocus
@@ -70,7 +70,7 @@ export const Login = () => {
               type="password"
               id="password"
               className="form-control"
-              defaultValue="test"
+              defaultValue=""
               placeholder="Password"
               required
             />

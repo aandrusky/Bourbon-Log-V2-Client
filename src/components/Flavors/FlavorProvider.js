@@ -8,9 +8,9 @@ const [flavorItem, setFlavors] = useState([])
 
 const GetFlavors = () => {
   return fetch("http://localhost:8000/flavors",{
-    headers:{
-      "Authorization": `Token ${localStorage.getItem("app_user")}`
-    }
+     headers:{
+       "Authorization": `Token ${localStorage.getItem("app_user")}`
+     }
   }
   )
     .then(res => res.json())
