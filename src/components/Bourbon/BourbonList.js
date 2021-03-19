@@ -4,6 +4,7 @@ import { FlavorSumsContext } from '../Flavors/FlavorSumProvider'
 import { FlavorFunctionGenerator } from "../Flavors/FlavorFunction"
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
+import Form from 'react-bootstrap/Form'
 import Modal from 'react-bootstrap/Modal'
 import Alert from 'react-bootstrap/Alert'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -109,9 +110,12 @@ export const BourbonList = (props) => {
                                 <p> Age: {selectedBourbon.age} years </p>
                                 <p> Batch: {selectedBourbon.batch_num} </p>
                                 <p> Rated: {selectedBourbon.rating} </p>
+                                <p> Price: {selectedBourbon.price} </p>
                                 <p> Notes: {selectedBourbon.notes} </p>
                                 <FlavorFunctionGenerator logId={selectedBourbon.id} />
                             </div>
+
+                          
 
 
 

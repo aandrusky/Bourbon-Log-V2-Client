@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import { LogContext } from "./LogProvider"
 import { FlavorSumsContext } from "../Flavors/FlavorSumProvider"
 import { FlavorContext } from "../Flavors/FlavorProvider"
@@ -21,7 +21,7 @@ export const BourbonForm = (props) => {
   //This checks if my object has a "logId" tied to it. If it does, then it means it's been created, and exists, therefore, not new.
   const editMode = props.match.params.hasOwnProperty("logId")  
 
-
+  const owned = useRef(null)
 
 
 
@@ -90,12 +90,12 @@ export const BourbonForm = (props) => {
     if (editMode) {
       EditLog({
         id: log.id, 
-        bourbonName: log.bourbonName,
+        bourbon_name: log.bourbon_name,
         distiller: log.distiller,
         proof: log.proof,
         age: log.age,
-        batchNum: log.batchNum,
-        owned: log.owned,
+        batch_num: log.batch_num,
+        owned: owned.current.checked,
         price: log.price,
         notes: log.notes,
         rating: log.rating,
@@ -108,12 +108,12 @@ export const BourbonForm = (props) => {
       .then(() => props.history.push("/ViewList"))
     } else {
       AddLog({
-        bourbonName: log.bourbonName,
+        bourbon_name: log.bourbon_name,
         distiller: log.distiller,
         proof: log.proof,
         age: log.age,
-        batchNum: log.batchNum,
-        owned: log.owned,
+        batch_num: log.batch_num,
+        owned: owned.current.checked,
         price: log.price,
         notes: log.notes,
         rating: log.rating,
@@ -137,9 +137,24 @@ export const BourbonForm = (props) => {
     <div className="BourbonFormContainer">
       <h1 className="bourbonForm__title"> {editMode ? "Update Log" : "New Bourbon Log"}</h1>
       <Form >
-        <Form.Group controlId="formBourbonName">
+
+      <h6 className="bourbonForm__title-Owned">Do you own this bottle?</h6>
+
+        <Form.Group controlId="ownedSwitch">
+        <Form.Check
+            type="switch"
+            ref={owned}
+            name="owned"
+            id="ownedIndicator-switch"
+            label="Owned"
+            onChange={handleControlledInputChange}
+            value={log.owned}
+        />
+        </Form.Group> 
+
+        <Form.Group controlId="formbourbon_name">
           <Form.Label >Bourbon Name</Form.Label>
-          <Form.Control type="text" name="bourbonName" onChange={handleControlledInputChange} value={log.bourbon_name} placeholder="Bourbon name here" />
+          <Form.Control type="text" name="bourbon_name" onChange={handleControlledInputChange} value={log.bourbon_name} placeholder="Bourbon name here" />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
 
@@ -160,7 +175,7 @@ export const BourbonForm = (props) => {
 
         <Form.Group controlId="formBatch">
           <Form.Label>Batch Number</Form.Label>
-          <Form.Control type="text" name="batchNum" onChange={handleControlledInputChange} value={log.batch_num} placeholder="Batch number/name here" />
+          <Form.Control type="text" name="batch_num" onChange={handleControlledInputChange} value={log.batch_num} placeholder="Batch number/name here" />
         </Form.Group>
 
         <Form.Group controlId="formPrice">
