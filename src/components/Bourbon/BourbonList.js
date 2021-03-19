@@ -63,9 +63,10 @@ export const BourbonList = (props) => {
 
                                         {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                                         <Card.Body>
-                                            <Card.Title>{logObj.bourbonName}</Card.Title>
+                                            <Card.Title>{logObj.bourbon_name}</Card.Title>
                                             <Card.Text >
                                                 <div className="Card_Data">Proof: {logObj.proof}</div>
+                                                <div className="Card_Data">batch#: {logObj.batch_num}</div>
                                             </Card.Text>
                                             <Button className="Buttoncard" size="lg" onClick={() => {
 
@@ -97,16 +98,17 @@ export const BourbonList = (props) => {
                         centered>
 
                         <Modal.Header >
-                            <Modal.Title>{selectedBourbon.bourbonName}</Modal.Title>
+                            <Modal.Title>{selectedBourbon.bourbon_name}</Modal.Title>
 
 
                         </Modal.Header>
+                        
                         <Modal.Body>
                             <div className="bourbonDataCard">                         
                                 <p>Distillery: {selectedBourbon.distiller} </p>
                                 <p>Proof: {selectedBourbon.proof} </p>
                                 <p> Age: {selectedBourbon.age} years </p>
-                                <p> Batch: {selectedBourbon.batchNum} </p>
+                                <p> Batch: {selectedBourbon.batch_num} </p>
                                 <p> Rated: {selectedBourbon.rating} </p>
                                 <p> Notes: {selectedBourbon.notes} </p>
                                 <FlavorFunctionGenerator logId={selectedBourbon.id} />
@@ -145,7 +147,6 @@ export const BourbonList = (props) => {
                                         DeleteLog(selectedBourbon.id)
                                             .then(() => {
                                                 props.history.push("/ViewList")
-
                                             })
                                     }}
                                         variant="danger">

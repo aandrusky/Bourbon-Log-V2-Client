@@ -39,7 +39,7 @@ export const LogProvider = (props) => {
         "Authorization": `Token ${localStorage.getItem("app_user")}`
       }
     })
-    .then(res => res.json())
+    // .then(res => res.json())
        .then(GetLogs)  
      //.then((data) => console.log("HERES THE DELETE", data))
   }
@@ -48,6 +48,7 @@ export const LogProvider = (props) => {
     return fetch(`http://localhost:8000/logs/${log.id}`, {
       method: "PUT",
       headers: {
+        "Content-Type": "application/json",
         "Authorization": `Token ${localStorage.getItem("app_user")}`
       },
       body: JSON.stringify(log)

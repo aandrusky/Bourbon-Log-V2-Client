@@ -89,7 +89,7 @@ export const BourbonForm = (props) => {
 
     if (editMode) {
       EditLog({
-        id: log.id, //+props.match.params.logId,
+        id: log.id, 
         bourbonName: log.bourbonName,
         distiller: log.distiller,
         proof: log.proof,
@@ -168,18 +168,6 @@ export const BourbonForm = (props) => {
           <Form.Control type="text" name="batchNum" onChange={handleControlledInputChange} value={log.batchNum} placeholder="Batch number/name here" />
         </Form.Group>
 
-        {/* <h6>Do you own this bottle?</h6>
-        <Form.Group controlId="ownedSwitch">
-          <Form.Check
-            type="switch"
-            name="owned"
-            id="ownedIndicator-switch"
-            label="Yes!"
-            onChange={handleControlledInputChange}
-            value={log.owned}
-          />
-        </Form.Group> */}
-
         <Form.Group controlId="formPrice">
           <Form.Label>Price Paid</Form.Label>
           <Form.Control type="text" name="price" onChange={handleControlledInputChange} value={log.price} placeholder="Price for bottle or pour here" />
@@ -202,7 +190,7 @@ export const BourbonForm = (props) => {
 
 
 
-        <Form >
+        {/* <Form > */}
           <Form.Group >
             {
               flavorItem.map(flavorObj => {
@@ -215,7 +203,7 @@ export const BourbonForm = (props) => {
               }
               )}
           </Form.Group>
-        </Form>
+        {/* </Form> */}
 
         <Button className="SaveButton" onClick={(evt) => {
           evt.preventDefault()
