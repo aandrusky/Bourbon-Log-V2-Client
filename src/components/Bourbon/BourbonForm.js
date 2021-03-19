@@ -125,14 +125,9 @@ export const BourbonForm = (props) => {
           
           singleFlavorSumObj.logId = logReturnedFromApi.id
           AddFlavorSums(singleFlavorSumObj)
-      
       })
       })
-
       .then(() => props.history.push("/ViewList"))
-          
-        //.then addflavorsums, pass flavorSumLogger, which will need to loop through the sliders and grab values that !0
-        
     }
   }
 
@@ -186,11 +181,6 @@ export const BourbonForm = (props) => {
 
         <h3 className="NotesHeader">Tasting Notes</h3>
 
-        {/*my console log does grab the slider value. that number is the user's assigned 'weight'. On save, I need to grab only the values >0. */}
-
-
-
-        {/* <Form > */}
           <Form.Group >
             {
               flavorItem.map(flavorObj => {
@@ -203,7 +193,7 @@ export const BourbonForm = (props) => {
               }
               )}
           </Form.Group>
-        {/* </Form> */}
+        
 
         <Button className="SaveButton" onClick={(evt) => {
           evt.preventDefault()
@@ -219,3 +209,18 @@ export const BourbonForm = (props) => {
     </div>
   )
 }
+
+
+
+
+// const getEditModeFlavors = () => {
+//   if (editMode) {
+//     const flavorId = parseInt(props.match.params.logId)
+//     const selectedBourbon = flavors.find(f => f.id === flavorId) || {}
+//     setLog(selectedBourbon)
+//   }
+// }
+
+// useEffect(() => {
+//   getEditModeFlavors()
+// }, [flavors])
