@@ -144,7 +144,7 @@ export const BourbonForm = (props) => {
       <Form >
         <Form.Group controlId="formBourbonName">
           <Form.Label >Bourbon Name</Form.Label>
-          <Form.Control type="text" name="bourbonName" onChange={handleControlledInputChange} value={log.bourbonName} placeholder="Bourbon name here" />
+          <Form.Control type="text" name="bourbonName" onChange={handleControlledInputChange} value={log.bourbon_name} placeholder="Bourbon name here" />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
 
@@ -165,7 +165,7 @@ export const BourbonForm = (props) => {
 
         <Form.Group controlId="formBatch">
           <Form.Label>Batch Number</Form.Label>
-          <Form.Control type="text" name="batchNum" onChange={handleControlledInputChange} value={log.batchNum} placeholder="Batch number/name here" />
+          <Form.Control type="text" name="batchNum" onChange={handleControlledInputChange} value={log.batch_num} placeholder="Batch number/name here" />
         </Form.Group>
 
         <Form.Group controlId="formPrice">

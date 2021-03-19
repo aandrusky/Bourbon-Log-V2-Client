@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FlavorSumsContext } from "./FlavorSumProvider"
 import { FlavorContext } from "./FlavorProvider"
-
 import { Pie } from 'react-chartjs-2';
 
 
@@ -16,11 +15,14 @@ export const FlavorFunctionGenerator = (props) => {       //purpose of this func
     
    
     useEffect(() => {
-        GetFlavorsById(props.logId)  //<<<< need getflavorsbyid? <This isn't even doing anything for me. 
+        GetFlavorsById(props.logId)  
+        console.log("logId", props.logId)
+
     }, [])
     
     useEffect(() => {
         const flavorLabels = flavors.map(flavorObj => {
+            
             return flavorObj.flavor.flavor
         })
         const flavorDataPoints = flavors.map(flavorObj => {
@@ -30,9 +32,7 @@ export const FlavorFunctionGenerator = (props) => {       //purpose of this func
         setflavorLabels(flavorLabels)
         setflavorDataPoints(flavorDataPoints)
     },[flavors])
-
-
-
+    
     return (
         <div className="chartContainer">
             <Pie data={{
