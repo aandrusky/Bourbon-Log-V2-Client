@@ -8,39 +8,47 @@ export const LogProvider = (props) => {
   // useState returns [initial value of state variable, a function to set the value of the state variable]
 
   const GetLogs = () => {
-    const userLogs = parseInt(localStorage.getItem("app_user_id"))
-    return fetch(`http://localhost:8088/logs?userId=${userLogs}`)
-      .then(res => res.json())
-        .then(setLogs)   //.then((data) => console.log("HERES THE DATA", data))
-    // .then(parsedLogs => setLogs(parsedLogs))
+    return fetch("http://localhost:8000/logs", {
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("app_user")}`
+      }
+    }
+    )
+      .then(res => res.json()) 
+        .then(setLogs)   //set logs mutates stats and changes value of logs
   }
 
   const AddLog = log => {
-    return fetch("http://localhost:8088/logs", {
+    return fetch("http://localhost:8000/logs", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("app_user")}`
       },
       body: JSON.stringify(log)
     })
        .then(res => res.json())
-      //  .then(GetLogs)
+       // .then(GetLogs)
   }
 
   const DeleteLog = log => {
-    return fetch(`http://localhost:8088/logs/${log}`, {
-      method: "DELETE"
+    return fetch(`http://localhost:8000/logs/${log}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("app_user")}`
+      }
     })
-    .then(res => res.json())
+    // .then(res => res.json())
        .then(GetLogs)  
      //.then((data) => console.log("HERES THE DELETE", data))
   }
 
   const EditLog = log => {
-    return fetch(`http://localhost:8088/logs/${log.id}`, {
+    return fetch(`http://localhost:8000/logs/${log.id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("app_user")}`
       },
       body: JSON.stringify(log)
     })

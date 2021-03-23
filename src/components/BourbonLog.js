@@ -8,7 +8,7 @@ export const BourbonLog = (props) => (
 <>
 <Route render={() => {
   
-    if (localStorage.getItem("app_user_id")) {
+    if (localStorage.getItem("app_user")) {
         return (
             <div className="app">
                  <ApplicationViews/>        

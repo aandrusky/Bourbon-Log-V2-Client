@@ -1,9 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import { LogContext } from "./LogProvider"
 import { FlavorSumsContext } from "../Flavors/FlavorSumProvider"
 import { FlavorContext } from "../Flavors/FlavorProvider"
 import { Form, Button } from "react-bootstrap"
-import { FlavorFunctionGenerator } from "../Flavors/FlavorFunction"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
@@ -11,40 +10,48 @@ export const BourbonForm = (props) => {
 
   // Use the required context providers for data
   const { AddLog, logs, EditLog, GetLogs } = useContext(LogContext)
-  const { flavors, GetFlavorSums, AddFlavorSums } = useContext(FlavorSumsContext)
+  const { flavors, GetFlavorSums, AddFlavorSums, GetFlavorsById } = useContext(FlavorSumsContext)
   const { GetFlavors, flavorItem } = useContext(FlavorContext)
 
   // Component state
   const [log, setLog] = useState({})
   const [flavorSumObjects, setFlavorSumObjects] = useState([])
-
+  const [defaultSliderValues, setDefaultSliderValues] = useState({})
   //This checks if my object has a "logId" tied to it. If it does, then it means it's been created, and exists, therefore, not new.
   const editMode = props.match.params.hasOwnProperty("logId")  
 
+  const owned = useRef(null)
 
 
 
-
-  const flavorSumLogger = (event) => {                          //this gets called everytime a slider is adjusted (onChange)
-    const logId = parseInt(props.match.params.logId)
-    const flavorId = parseInt(event.target.id)                  //gets our id from our flavorsums resource- declared by the context provider above
-    const newFlavorSumObjects = flavorSumObjects.slice()        //<newFlavorSumObjects is a copy of our state variable array
+  const flavorSumLogger = (event) => {
+    const foundFlavor = flavorItem.find((flavorObj) => flavorObj.id === parseInt(event.target.id))                                     
+    const logId = parseInt(props.match.params.logId)                         //this gets called everytime a slider is adjusted (onChange)
+    const flavorId = parseInt(event.target.id)                              //gets our id from our flavorsums resource- declared by the context provider above
+    const newFlavorSumObjects = flavorSumObjects.slice()                    //<newFlavorSumObjects is a copy of our state variable array
     const foundFlavorObject = flavorSumObjects.find(flavor => flavor.flavorId === flavorId)  //loops through my array to find any instance of flavorId
-    const flavorweight = parseInt(event.target.value)           //gets our flavorweight from the flavorsums resources and sticks it in a variable. 
-    if (foundFlavorObject !== undefined) {                      //checks if found items from loop are undefined (empty object with no value- slider was never adjusted)
-      foundFlavorObject.flavorweight = flavorweight             //and if they are NOT undefined, then we can take that value and assign it as flavorweight
+    const flavorweight = parseInt(event.target.value)                       //gets our flavorweight from the flavorsums resources and sticks it in a variable. 
+    if (foundFlavorObject !== undefined) {                                  //checks if found items from loop are undefined (empty object with no value- slider was never adjusted)
+      foundFlavorObject.flavorweight = flavorweight                         //and if they are NOT undefined, then we can take that value and assign it as flavorweight
     } else {
-      newFlavorSumObjects.push({ flavorId, flavorweight, logId }) //otherwise add the found ID and WEIGHT to our array copy
+      
+      newFlavorSumObjects.forEach((singleSum, index) => {
+        if (singleSum.flavorId === flavorId) {
+          newFlavorSumObjects.splice(index, 1)
+        }
+      } )
+      newFlavorSumObjects.push({ flavorId, flavorweight, logId })           //otherwise add the found ID and WEIGHT to our array copy
     }
-    setFlavorSumObjects(newFlavorSumObjects)                    //I call my setState function and pass in my now filled array copy as an its new
-
+    setFlavorSumObjects(newFlavorSumObjects)                                //I call my setState function and pass in my now filled array copy as an its new
+    if (editMode) {
+    const newDefaultValues = Object.assign({}, defaultSliderValues)
+     
+    newDefaultValues[foundFlavor.flavor] = event.target.value
+    setDefaultSliderValues(newDefaultValues)
+    }
     
   } 
   
-
-
-
-
 
   const handleControlledInputChange = (event) => {
     /*
@@ -59,7 +66,7 @@ export const BourbonForm = (props) => {
 
   /*
          If there is a URL parameter, then the user has chosen to
-         edit an animal.
+         edit a log.
              1. Get the value of the URL parameter.
              2. Use that `id` to find the animal.
              3. Update component state variable.
@@ -73,37 +80,50 @@ export const BourbonForm = (props) => {
       setLog(selectedBourbon)
     }
   }
-
-  // Get animals from API when component initializes- do I also need to get flavorSums here?
-  useEffect(() => {
-    GetLogs()
-  }, [])
-
-  // Once provider state is updated, determine the animal (if edit)
+  
+  // Once provider state is updated, determine the log (if edit)
   useEffect(() => {
     getLogInEditMode()
   }, [logs])
+  
+  
 
   useEffect(() => {
     GetFlavors()
+    .then(() => GetLogs())
+    .then(() => GetFlavorsById(props.match.params.logId))
   }, [])
+
+  useEffect(() => {
+    if (flavors.length > 0 && editMode) {
+      const newDefaultValues = Object.assign({}, defaultSliderValues)
+      
+      for (let index = 0; index < flavorItem.length; index++) {
+        const flavorObj = flavorItem[index];
+        const foundFlavorSum = flavors.find((singleSum) => flavorObj.id === singleSum.flavor.id) || {flavor_weight:"0"}
+        newDefaultValues[flavorObj.flavor] = foundFlavorSum.flavor_weight
+      }
+      setDefaultSliderValues(newDefaultValues)
+    }
+  }, [flavors]
+  )
 
 
   const constructNewBourbon = () => {
 
     if (editMode) {
       EditLog({
-        id: log.id, //+props.match.params.logId,
-        bourbonName: log.bourbonName,
+        id: log.id, 
+        bourbon_name: log.bourbon_name,
         distiller: log.distiller,
         proof: log.proof,
         age: log.age,
-        batchNum: log.batchNum,
-        owned: log.owned,
+        batch_num: log.batch_num,
+        owned: owned.current.checked,
         price: log.price,
         notes: log.notes,
         rating: log.rating,
-        userId: parseInt(localStorage.getItem("app_user_id"))
+        userId: parseInt(localStorage.getItem("app_user"))
       })
       .then(() => {
 
@@ -112,16 +132,16 @@ export const BourbonForm = (props) => {
       .then(() => props.history.push("/ViewList"))
     } else {
       AddLog({
-        bourbonName: log.bourbonName,
+        bourbon_name: log.bourbon_name,
         distiller: log.distiller,
         proof: log.proof,
         age: log.age,
-        batchNum: log.batchNum,
-        owned: log.owned,
+        batch_num: log.batch_num,
+        owned: owned.current.checked,
         price: log.price,
         notes: log.notes,
         rating: log.rating,
-        userId: parseInt(localStorage.getItem("app_user_id"))
+        userId: parseInt(localStorage.getItem("app_user"))
       }) 
       .then((logReturnedFromApi) => {
 
@@ -129,14 +149,9 @@ export const BourbonForm = (props) => {
           
           singleFlavorSumObj.logId = logReturnedFromApi.id
           AddFlavorSums(singleFlavorSumObj)
-      
       })
       })
-
       .then(() => props.history.push("/ViewList"))
-          
-        //.then addflavorsums, pass flavorSumLogger, which will need to loop through the sliders and grab values that !0
-        
     }
   }
 
@@ -146,9 +161,24 @@ export const BourbonForm = (props) => {
     <div className="BourbonFormContainer">
       <h1 className="bourbonForm__title"> {editMode ? "Update Log" : "New Bourbon Log"}</h1>
       <Form >
-        <Form.Group controlId="formBourbonName">
+
+      <h6 className="bourbonForm__title-Owned">Do you own this bottle?</h6>
+
+        <Form.Group controlId="ownedSwitch">
+        <Form.Check
+            type="switch"
+            ref={owned}
+            name="owned"
+            id="ownedIndicator-switch"
+            label="Owned"
+            onChange={handleControlledInputChange}
+            value={log.owned}
+        />
+        </Form.Group> 
+
+        <Form.Group controlId="formbourbon_name">
           <Form.Label >Bourbon Name</Form.Label>
-          <Form.Control type="text" name="bourbonName" onChange={handleControlledInputChange} value={log.bourbonName} placeholder="Bourbon name here" />
+          <Form.Control type="text" name="bourbon_name" onChange={handleControlledInputChange} value={log.bourbon_name} placeholder="Bourbon name here" />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
 
@@ -169,20 +199,8 @@ export const BourbonForm = (props) => {
 
         <Form.Group controlId="formBatch">
           <Form.Label>Batch Number</Form.Label>
-          <Form.Control type="text" name="batchNum" onChange={handleControlledInputChange} value={log.batchNum} placeholder="Batch number/name here" />
+          <Form.Control type="text" name="batch_num" onChange={handleControlledInputChange} value={log.batch_num} placeholder="Batch number/name here" />
         </Form.Group>
-
-        {/* <h6>Do you own this bottle?</h6>
-        <Form.Group controlId="ownedSwitch">
-          <Form.Check
-            type="switch"
-            name="owned"
-            id="ownedIndicator-switch"
-            label="Yes!"
-            onChange={handleControlledInputChange}
-            value={log.owned}
-          />
-        </Form.Group> */}
 
         <Form.Group controlId="formPrice">
           <Form.Label>Price Paid</Form.Label>
@@ -202,29 +220,37 @@ export const BourbonForm = (props) => {
 
         <h3 className="NotesHeader">Tasting Notes</h3>
 
-        {/*my console log does grab the slider value. that number is the user's assigned 'weight'. On save, I need to grab only the values >0. */}
-
-
-
-        <Form >
           <Form.Group >
             {
               flavorItem.map(flavorObj => {
-                return (
-                  <>
+                
+                
+                  if (editMode && defaultSliderValues.hasOwnProperty(flavorObj.flavor)) {
+        
+                  return (
+                    <>
+                    <Form.Label>{flavorObj.flavor}</Form.Label>
+                    <Form.Control id={flavorObj.id} name={flavorObj.flavor} value= {defaultSliderValues[flavorObj.flavor]} type="range" onChange={flavorSumLogger} />
+                  </>
+                  )
+                  }
+                  else {
+                    return (
+                      <>
                     <Form.Label>{flavorObj.flavor}</Form.Label>
                     <Form.Control id={flavorObj.id} defaultValue="0" type="range" onChange={flavorSumLogger} />
                   </>
-                )
+                    )
+                    }
               }
               )}
 
           </Form.Group>
-        </Form>
+        
 
         <Button className="SaveButton" onClick={(evt) => {
           evt.preventDefault()
-          console.log("FSOBJ", flavorSumObjects)
+          console.log("flavorSumObjects", flavorSumObjects)
           constructNewBourbon()
           
         }}
@@ -236,3 +262,6 @@ export const BourbonForm = (props) => {
     </div>
   )
 }
+
+
+

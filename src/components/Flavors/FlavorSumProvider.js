@@ -12,7 +12,11 @@ const [flavors, setFlavorsSums] = useState([])
 
 
 const GetFlavorSums = () => {
-  return fetch("http://localhost:8000/flavorsums")
+  return fetch("http://localhost:8000/flavorsums", {
+    headers:{
+      "Authorization": `Token ${localStorage.getItem("app_user")}`
+    }
+  })
     .then(res => res.json())
     .then(setFlavorsSums)
   // .then(parsedFlavors => setFlavors(parsedFlavors))
@@ -22,7 +26,8 @@ const AddFlavorSums = (flavor) => {
     return fetch("http://localhost:8000/flavorsums", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("app_user")}`
       },
       body: JSON.stringify(flavor)
     })
@@ -30,7 +35,10 @@ const AddFlavorSums = (flavor) => {
   }
 
   const GetFlavorsById = (logId) => {
-    return fetch(`http://localhost:8000/flavorsums?logId=${logId}`)
+    return fetch(`http://localhost:8000/flavorsums?logId=${logId}`, {
+      headers: {
+      "Authorization": `Token ${localStorage.getItem("app_user")}`
+  }})
       .then(res => res.json())
       .then(setFlavorsSums)
      // .then(GetFlavorSums)

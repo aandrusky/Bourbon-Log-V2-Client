@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { LogContext } from './LogProvider'
 import { FlavorSumsContext } from '../Flavors/FlavorSumProvider'
 import { FlavorFunctionGenerator } from "../Flavors/FlavorFunction"
-import { Pie } from 'react-chartjs-2';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
+import Form from 'react-bootstrap/Form'
 import Modal from 'react-bootstrap/Modal'
 import Alert from 'react-bootstrap/Alert'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -46,31 +46,33 @@ export const BourbonList = (props) => {
 
             <div className="BourbonListContainer">
 
-                <h1 className="BourbonListHeader">BourbonList </h1>
+                <h1 className="BourbonListHeader">Bourbon List </h1>
 
 
 
                 <div className="CardContainer">
                     {
                         logs.map(logObj => {
-
+                            
+                           
                             return (
-
-
+                                
+                                
                                 <div className="Cards">
 
                                     <Card className="text-center" key={logObj.id} style={{ width: '13rem' }}>
 
                                         {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                                         <Card.Body>
-                                            <Card.Title>{logObj.bourbonName}</Card.Title>
+                                            <Card.Title>{logObj.bourbon_name}</Card.Title>
                                             <Card.Text >
                                                 <div className="Card_Data">Proof: {logObj.proof}</div>
+                                                <div className="Card_Data">batch#: {logObj.batch_num}</div>
                                             </Card.Text>
                                             <Button className="Buttoncard" size="lg" onClick={() => {
-
+                                                
                                                 handleShow(logObj)
-
+                                                
                                             }}
                                             >
                                                 View Log
@@ -88,30 +90,37 @@ export const BourbonList = (props) => {
                 </div>
 
 
+
                             {/* show modal if selected bourbon exists */}
                 {selectedBourbon.id
                     ? <Modal show={show} onHide={handleClose}
-                        {...props}
-                        size="lg"
-                        aria-labelledby="contained-modal-title-vcenter"
-                        centered>
+                    {...props}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered>
+
+                     
 
                         <Modal.Header >
-                            <Modal.Title>{selectedBourbon.bourbonName}</Modal.Title>
+                            <Modal.Title>{selectedBourbon.bourbon_name }
+                            </Modal.Title>
 
 
                         </Modal.Header>
+                        
                         <Modal.Body>
                             <div className="bourbonDataCard">                         
                                 <p>Distillery: {selectedBourbon.distiller} </p>
                                 <p>Proof: {selectedBourbon.proof} </p>
                                 <p> Age: {selectedBourbon.age} years </p>
-                                <p> Batch: {selectedBourbon.batchNum} </p>
+                                <p> Batch: {selectedBourbon.batch_num} </p>
                                 <p> Rated: {selectedBourbon.rating} </p>
+                                <p> Price: {selectedBourbon.price} </p>
                                 <p> Notes: {selectedBourbon.notes} </p>
                                 <FlavorFunctionGenerator logId={selectedBourbon.id} />
                             </div>
 
+                          
 
 
 
@@ -139,16 +148,15 @@ export const BourbonList = (props) => {
                                         No, go back
                                     </Button>
                                     <Button onClick={() => {
-
+                                        
                                         setShowAlert(false)
                                         handleClose()
                                         DeleteLog(selectedBourbon.id)
-                                            .then(() => {
-                                                props.history.push("/ViewList")
-
-                                            })
+                                        .then(() => {
+                                            props.history.push("/ViewList")
+                                        })
                                     }}
-                                        variant="danger">
+                                    variant="danger">
                                         Yes, delete permanantly
                                     </Button>
 

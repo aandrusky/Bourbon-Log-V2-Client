@@ -2,7 +2,6 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import { BourbonForm } from './Bourbon/BourbonForm'
 import { BourbonList } from './Bourbon/BourbonList'
-// import { FlavorFunctionGenerator } from "./Flavors/FlavorFunction"
 import { Home } from './Nav/Home'
 import { LogProvider } from "./Bourbon/LogProvider"
 import { FlavorSumProvider } from './Flavors/FlavorSumProvider'
