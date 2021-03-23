@@ -14,9 +14,8 @@ export const LogProvider = (props) => {
       }
     }
     )
-      .then(res => res.json())
-        .then(setLogs)   //.then((data) => console.log("HERES THE DATA", data))
-    // .then(parsedLogs => setLogs(parsedLogs))
+      .then(res => res.json()) 
+        .then(setLogs)   //set logs mutates stats and changes value of logs
   }
 
   const AddLog = log => {

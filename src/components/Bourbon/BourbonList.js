@@ -54,6 +54,7 @@ export const BourbonList = (props) => {
                     {
                         logs.map(logObj => {
                             
+                           
                             return (
                                 
                                 
@@ -89,6 +90,7 @@ export const BourbonList = (props) => {
                 </div>
 
 
+
                             {/* show modal if selected bourbon exists */}
                 {selectedBourbon.id
                     ? <Modal show={show} onHide={handleClose}
@@ -97,8 +99,11 @@ export const BourbonList = (props) => {
                     aria-labelledby="contained-modal-title-vcenter"
                     centered>
 
+                     
+
                         <Modal.Header >
-                            <Modal.Title>{selectedBourbon.bourbon_name}</Modal.Title>
+                            <Modal.Title>{selectedBourbon.bourbon_name }
+                            </Modal.Title>
 
 
                         </Modal.Header>

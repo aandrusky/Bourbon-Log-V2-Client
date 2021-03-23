@@ -3,7 +3,6 @@ import { LogContext } from "./LogProvider"
 import { FlavorSumsContext } from "../Flavors/FlavorSumProvider"
 import { FlavorContext } from "../Flavors/FlavorProvider"
 import { Form, Button } from "react-bootstrap"
-// import { FlavorFunctionGenerator } from "../Flavors/FlavorFunction"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
@@ -11,13 +10,13 @@ export const BourbonForm = (props) => {
 
   // Use the required context providers for data
   const { AddLog, logs, EditLog, GetLogs } = useContext(LogContext)
-  const { flavors, GetFlavorSums, AddFlavorSums } = useContext(FlavorSumsContext)
+  const { flavors, GetFlavorSums, AddFlavorSums, GetFlavorsById } = useContext(FlavorSumsContext)
   const { GetFlavors, flavorItem } = useContext(FlavorContext)
 
   // Component state
   const [log, setLog] = useState({})
   const [flavorSumObjects, setFlavorSumObjects] = useState([])
-
+  const [defaultSliderValues, setDefaultSliderValues] = useState({})
   //This checks if my object has a "logId" tied to it. If it does, then it means it's been created, and exists, therefore, not new.
   const editMode = props.match.params.hasOwnProperty("logId")  
 
@@ -25,8 +24,9 @@ export const BourbonForm = (props) => {
 
 
 
-  const flavorSumLogger = (event) => {                                      //this gets called everytime a slider is adjusted (onChange)
-    const logId = parseInt(props.match.params.logId)
+  const flavorSumLogger = (event) => {
+    const foundFlavor = flavorItem.find((flavorObj) => flavorObj.id === parseInt(event.target.id))                                     
+    const logId = parseInt(props.match.params.logId)                         //this gets called everytime a slider is adjusted (onChange)
     const flavorId = parseInt(event.target.id)                              //gets our id from our flavorsums resource- declared by the context provider above
     const newFlavorSumObjects = flavorSumObjects.slice()                    //<newFlavorSumObjects is a copy of our state variable array
     const foundFlavorObject = flavorSumObjects.find(flavor => flavor.flavorId === flavorId)  //loops through my array to find any instance of flavorId
@@ -34,10 +34,21 @@ export const BourbonForm = (props) => {
     if (foundFlavorObject !== undefined) {                                  //checks if found items from loop are undefined (empty object with no value- slider was never adjusted)
       foundFlavorObject.flavorweight = flavorweight                         //and if they are NOT undefined, then we can take that value and assign it as flavorweight
     } else {
+      
+      newFlavorSumObjects.forEach((singleSum, index) => {
+        if (singleSum.flavorId === flavorId) {
+          newFlavorSumObjects.splice(index, 1)
+        }
+      } )
       newFlavorSumObjects.push({ flavorId, flavorweight, logId })           //otherwise add the found ID and WEIGHT to our array copy
     }
     setFlavorSumObjects(newFlavorSumObjects)                                //I call my setState function and pass in my now filled array copy as an its new
-
+    if (editMode) {
+    const newDefaultValues = Object.assign({}, defaultSliderValues)
+     
+    newDefaultValues[foundFlavor.flavor] = event.target.value
+    setDefaultSliderValues(newDefaultValues)
+    }
     
   } 
   
@@ -69,20 +80,33 @@ export const BourbonForm = (props) => {
       setLog(selectedBourbon)
     }
   }
-
-  // Get animals from API when component initializes- do I also need to get flavorSums here?
-  useEffect(() => {
-    GetLogs()
-  }, [])
-
+  
   // Once provider state is updated, determine the log (if edit)
   useEffect(() => {
     getLogInEditMode()
   }, [logs])
+  
+  
 
   useEffect(() => {
     GetFlavors()
+    .then(() => GetLogs())
+    .then(() => GetFlavorsById(props.match.params.logId))
   }, [])
+
+  useEffect(() => {
+    if (flavors.length > 0 && editMode) {
+      const newDefaultValues = Object.assign({}, defaultSliderValues)
+      
+      for (let index = 0; index < flavorItem.length; index++) {
+        const flavorObj = flavorItem[index];
+        const foundFlavorSum = flavors.find((singleSum) => flavorObj.id === singleSum.flavor.id) || {flavor_weight:"0"}
+        newDefaultValues[flavorObj.flavor] = foundFlavorSum.flavor_weight
+      }
+      setDefaultSliderValues(newDefaultValues)
+    }
+  }, [flavors]
+  )
 
 
   const constructNewBourbon = () => {
@@ -199,20 +223,34 @@ export const BourbonForm = (props) => {
           <Form.Group >
             {
               flavorItem.map(flavorObj => {
-                return (
-                  <>
+                
+                
+                  if (editMode && defaultSliderValues.hasOwnProperty(flavorObj.flavor)) {
+        
+                  return (
+                    <>
+                    <Form.Label>{flavorObj.flavor}</Form.Label>
+                    <Form.Control id={flavorObj.id} name={flavorObj.flavor} value= {defaultSliderValues[flavorObj.flavor]} type="range" onChange={flavorSumLogger} />
+                  </>
+                  )
+                  }
+                  else {
+                    return (
+                      <>
                     <Form.Label>{flavorObj.flavor}</Form.Label>
                     <Form.Control id={flavorObj.id} defaultValue="0" type="range" onChange={flavorSumLogger} />
                   </>
-                )
+                    )
+                    }
               }
               )}
+
           </Form.Group>
         
 
         <Button className="SaveButton" onClick={(evt) => {
           evt.preventDefault()
-          console.log("FSOBJ", flavorSumObjects)
+          console.log("flavorSumObjects", flavorSumObjects)
           constructNewBourbon()
           
         }}
@@ -227,15 +265,3 @@ export const BourbonForm = (props) => {
 
 
 
-
-// const getEditModeFlavors = () => {
-//   if (editMode) {
-//     const flavorId = parseInt(props.match.params.logId)
-//     const selectedBourbon = flavors.find(f => f.id === flavorId) || {}
-//     setLog(selectedBourbon)
-//   }
-// }
-
-// useEffect(() => {
-//   getEditModeFlavors()
-// }, [flavors])
