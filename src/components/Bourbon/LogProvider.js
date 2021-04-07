@@ -7,6 +7,8 @@ export const LogProvider = (props) => {
   const [logs, setLogs] = useState([])
   // useState returns [initial value of state variable, a function to set the value of the state variable]
 
+  const [searchTerms, setTerms] = useState("")
+
   const GetLogs = () => {
     return fetch("http://localhost:8000/logs", {
       headers: {
@@ -58,7 +60,7 @@ export const LogProvider = (props) => {
   return (
     <LogContext.Provider value={
       {
-        logs, AddLog, GetLogs, DeleteLog, EditLog
+        logs, AddLog, GetLogs, DeleteLog, EditLog, searchTerms, setTerms
       }
     }>
       {props.children}

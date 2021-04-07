@@ -16,11 +16,12 @@ export const BourbonList = (props) => {
 
     //State variables get set by provider functions by calling 'setX' at the end of the call. The useContext argument returns 1 array with 2 things in it. 
 
-    const { DeleteLog, GetLogs, logs } = useContext(LogContext)
+    const { DeleteLog, GetLogs, logs, searchTerms } = useContext(LogContext)
     const { GetFlavorSums, flavors } = useContext(FlavorSumsContext)
 
     const [selectedBourbon, setSelectedBourbon] = useState({})
     const [flavorSumObj, setFlavorsSums] = useState({})
+    const [ filteredLogs, setFiltered ] = useState([])
 
     const [show, setShow] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
@@ -40,6 +41,17 @@ export const BourbonList = (props) => {
     useEffect(() => {
         GetFlavorSums()
     }, []) //update on component initialization
+
+    useEffect(() => {
+        if (searchTerms !== "") {
+          // If the search field is not blank, display matching animals
+          const subset = logs.filter(log => log.name.toLowerCase().includes(searchTerms))
+          setFiltered(subset)
+        } else {
+          // If the search field is blank, display all animals
+          setFiltered(logs)
+        }
+      }, [searchTerms, logs])
 
     return (
         <>

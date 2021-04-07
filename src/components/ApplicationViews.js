@@ -7,6 +7,8 @@ import { LogProvider } from "./Bourbon/LogProvider"
 import { FlavorSumProvider } from './Flavors/FlavorSumProvider'
 import { FlavorDetail } from './Flavors/FlavorDetail'
 import { FlavorProvider } from './Flavors/FlavorProvider'
+import { LogSearch } from "./Bourbon/LogSearch"
+
 
 export const ApplicationViews = (props) => {
     return (
@@ -18,17 +20,25 @@ export const ApplicationViews = (props) => {
                     props => <Home {...props}
                     />
                 } />
+
                 <Route path="/NewLog" render={
                     props => <BourbonForm {...props} />
                 } />
+
                 <Route path="/logs/edit/:logId(\d+)" render={
                     props => <BourbonForm {...props} />
                 } />
+
                 <Route path="/ViewList" render={
                     props => <>
                     <BourbonList {...props} />
-                    {/* <FlavorFunctionGenerator {...props}/> */}
                    </>
+                }/>
+                <Route exact path= "/logs" render={
+                    props => <>
+                    <LogSearch />
+                    <BourbonList {...props} />
+                    </>
                 } />
                     </FlavorSumProvider>
                 </FlavorProvider>
